@@ -1,0 +1,24 @@
+<!-- chat/templates/room.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Room: {{ room_name }}</h2>
+
+    <div id="message-list">
+        {% for message in messages %}
+            <p>{{ message.user }} - {{ message.timestamp }}: {{ message.content }}</p>
+        {% endfor %}
+    </div>
+
+    <form id="message-form">
+        {% csrf_token %}
+        <input type="text" id="message-input">
+        <button type="submit">Send</button>
+    </form>
+
+    <script>
+        var roomName = '{{ room_name }}';
+        var userName = '{{ request.user.username }}';
+    </script>
+{% endblock %}
