@@ -1,9 +1,12 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import login_required
 
 from .models import Room, Message
+
+# Home
+def home(request):
+    return render(request, 'home.html')
 
 @login_required
 def room(request, room_name):
