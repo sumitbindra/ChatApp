@@ -4,3 +4,5 @@ djangorestframework==3.14.0
 djangorestframework-simplejwt==4.8.0
 six==1.16.0
 django-allauth==0.52.0
+stream-python==5.2.1
+stream-chat==4.6.0

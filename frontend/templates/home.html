@@ -1,5 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% load socialaccount %}
 
 {% block content %}
 
-{% endblock %}
+<div class="container" style="text-align: center; padding-top: 10%;">
+
+  {% if user.is_authenticated %}
+    <h2>Welcome {{ user.username }} !!!</h2>
+    <br /><br />
+    <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
+  {% else %}
+    <h2>Welcome Guest. Please Login!</h2>
+    <br /><br />
+    <a href="{% url 'account_login' %}" class="btn btn-danger">Login</a>
+  {% endif %}
+
+
+</div>
+
+{% endblock content %}

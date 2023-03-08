@@ -110,13 +110,17 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '123',
-            'secret': '456',
+            'client_id': '060c5788d5da24fc3d68',
+            'secret': '03bea8523ff890755eb540e7c29b2cf1052602a8',
             'key': ''
         }
     }
 }
 
+#information from stream
+STREAM_API_KEY = '7nhqbspxvehz' # https://getstream.io/dashboard/
+STREAM_API_SECRET = "nknppxzkp8q4dfwp7yp9mwy8nkwtqavv7zu2rxamjka3avhtnmum3ucs27g3q4ry"
+STREAM_APP_KEY = '1236045'
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
@@ -127,7 +131,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'db.chat_test'),
     }
 }
 

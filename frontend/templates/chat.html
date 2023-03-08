@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Chat</h2>
+  <div id="chat-messages">
+    {% for chat in chats %}
+      <p>{{ chat.user.username }}: {{ chat.text }}</p>
+    {% endfor %}
+  </div>
+  <form id="post-chat-form">
+    {% csrf_token %}
+    <input type="text" id="chat-text" name="chat_text">
+    <button type="submit">Send</button>
+  </form>
+{% endblock %}
+
+{% block javascript %}
+  <script>
+    var postChatForm = document.getElementById('post-chat-form');
+    postChatForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      var chatText = document.getElementById('chat-text').value;
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '/post_chat/');
+      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+      xhr.onload = function() {
+        var response = JSON.parse(xhr.responseText);
+        var chatMessages = document.getElementById('chat-messages');
+        var chatMessage = document.createElement('p');
+        chatMessage.innerHTML = response.user + ': ' + response.text;
+        chatMessages.appendChild(chatMessage);
+      };
+      xhr.send('chat_text=' + encodeURIComponent(chatText));
+    });
+  </script>
+{% endblock %}
