@@ -37,13 +37,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+
     
     # other installed apps
     'backend',
 
     # user management
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     'rest_framework',
-    'djoser',
+    #'djoser',
+
+    # including auth providers
+    'allauth.socialaccount.providers.github',
 ]
 
 REST_FRAMEWORK = {
@@ -79,6 +87,36 @@ TEMPLATES = [
         },
     },
 ]
+
+# Added for Django-allauth
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+# continue django-allauth
+SITE_ID = 1
+
+ACCOUNT_EMAIL_VERIFICATION = "none"
+LOGIN_REDIRECT_URL = "home"
+ACCOUNT_LOGOUT_ON_GET = True
+
+# continue django-allauth - Provider specific settings
+SOCIALACCOUNT_PROVIDERS = {
+    'github': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '123',
+            'secret': '456',
+            'key': ''
+        }
+    }
+}
+
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 
