@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 
 from django.views.decorators.csrf import csrf_exempt
 from stream_chat import StreamChat
+from backend import settings
 
 from backend.models import Chat
 
@@ -16,24 +17,23 @@ def home(request):
 @login_required
 def chat(request):
     User = get_user_model()
-    chats = Chat.objects.all()
-    return render(request, 'chat.html', {'chats': chats})
+    user_id = request.user.id
+    user = User.objects.get(id=user_id)
 
-@csrf_exempt
-@login_required
-def post_chat(request):
-    User = get_user_model()
-    chat_text = request.POST.get('chat_text')
-    user = request.user
-    chat = Chat.objects.create(user=user, text=chat_text)
-    chat_data = {'id': chat.id, 'text': chat.text, 'user': user.username, 'created_date': chat.created_date}
-    client = StreamChat(api_key=settings.STREAM_API_KEY, api_secret=settings.STREAM_API_SECRET)
-    client.update_user({'id':user.id, 'name': user.username})
-    channel_id = 'chat-global'
-    channel = client.channel('messaging', channel_id=channel_id)
-    channel.create()
-    channel.add_members([user.id])
-    message = {'text': chat.text, 'user_id': user.id}
-    channel.send_message(message)
-    return JsonResponse(chat_data)
+    chat_client = StreamChat(api_key=settings.STREAM_API_KEY, api_secret=settings.STREAM_API_SECRET)
+    user_token = chat_client.create_token(str(user_id))
+
+    context = {
+        'stream_api_key': settings.STREAM_API_KEY,
+        'stream_chat_channel_type': settings.STREAM_CHAT_CHANNEL_TYPE,
+        'stream_chat_channel_name_prefix': settings.STREAM_CHAT_CHANNEL_NAME_PREFIX,
+        'user': {
+            'id': user.id,
+            'name': user.username,
+            #'image_url': user.profile_image.url,
+        },
+        'user_token': user_token,
+        'channel_name': 'my-channel',
+    }
+    return render(request, 'chat.html', context)
 

@@ -1,36 +1,52 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Chat App</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/stream-chat-css/dist/css/index.css" />
+  <script src="https://cdn.jsdelivr.net/npm/stream-chat@7.2.0/dist/browser.full-bundle.min.js"></script>
+</head>
+<body>
+  <div id="chat-container">
+    <h2>Welcome {{ user.name }} to chatroom {{ channel_name }}</h2>
 
-{% block content %}
-  <h2>Chat</h2>
-  <div id="chat-messages">
-    {% for chat in chats %}
-      <p>{{ chat.user.username }}: {{ chat.text }}</p>
-    {% endfor %}
+    <div id="channel-container"></div>
+    <div id="message-input-container"></div>
   </div>
-  <form id="post-chat-form">
-    {% csrf_token %}
-    <input type="text" id="chat-text" name="chat_text">
-    <button type="submit">Send</button>
-  </form>
-{% endblock %}
 
-{% block javascript %}
   <script>
-    var postChatForm = document.getElementById('post-chat-form');
-    postChatForm.addEventListener('submit', function(event) {
-      event.preventDefault();
-      var chatText = document.getElementById('chat-text').value;
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', '/post_chat/');
-      xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-      xhr.onload = function() {
-        var response = JSON.parse(xhr.responseText);
-        var chatMessages = document.getElementById('chat-messages');
-        var chatMessage = document.createElement('p');
-        chatMessage.innerHTML = response.user + ': ' + response.text;
-        chatMessages.appendChild(chatMessage);
-      };
-      xhr.send('chat_text=' + encodeURIComponent(chatText));
+    // Initialize the Stream Chat client
+    const client = new StreamChat('{{ stream_api_key }}');
+
+    // Set up the user
+    const user = {
+      id: '{{ user.id }}',
+      name: '{{ user.name }}',
+    };
+    client.setUser(user, '{{ user_token }}');
+
+    // Set up the channel
+    const channel = client.channel('{{ stream_chat_channel_type }}', '{{ stream_chat_channel_name_prefix }}{{ channel_name }}');
+
+    // Render the Channel and MessageInput components
+    const channelContainer = document.getElementById('channel-container');
+    const messageInputContainer = document.getElementById('message-input-container');
+
+    const messageList = new StreamChat.MessageList({ 
+      channel: channel,
+      limit: 100,
     });
+
+    const messageInput = new StreamChat.MessageInput({
+      channel: channel,
+      onSendMessage: function (message) {
+        channel.sendMessage({
+          text: message.text,
+        });
+      },
+    });
+
+    messageList.attachDOM(channelContainer);
+    messageInput.attachDOM(messageInputContainer);
   </script>
-{% endblock %}
+</body>
+</html>

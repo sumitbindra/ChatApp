@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     
     # other installed apps
     'backend',
+    'stream_chat',
 
     # user management
     'allauth',
@@ -100,7 +101,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "chatapp:chat"
 ACCOUNT_LOGOUT_ON_GET = True
 
 # continue django-allauth - Provider specific settings
@@ -117,10 +118,13 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-#information from stream
+#information from stream    
 STREAM_API_KEY = '7nhqbspxvehz' # https://getstream.io/dashboard/
 STREAM_API_SECRET = "nknppxzkp8q4dfwp7yp9mwy8nkwtqavv7zu2rxamjka3avhtnmum3ucs27g3q4ry"
 STREAM_APP_KEY = '1236045'
+
+STREAM_CHAT_CHANNEL_TYPE = 'messaging'
+STREAM_CHAT_CHANNEL_NAME_PREFIX = 'chat-'
 
 WSGI_APPLICATION = 'backend.wsgi.application'
 

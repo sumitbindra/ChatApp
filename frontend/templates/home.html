@@ -7,7 +7,7 @@
   {% if user.is_authenticated %}
     <h2>Welcome {{ user.username }} !!!</h2>
     <br /><br />
-    <a href="{% url 'account_logout' %}" class="btn btn-danger">Logout</a>
+    <a href="{% url 'chat' %}" class="btn btn-danger">Enter Chat Room</a>
   {% else %}
     <h2>Welcome Guest. Please Login!</h2>
     <br /><br />
