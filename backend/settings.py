@@ -101,7 +101,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "chatapp:chat"
+LOGIN_REDIRECT_URL = "chat"
 ACCOUNT_LOGOUT_ON_GET = True
 
 # continue django-allauth - Provider specific settings

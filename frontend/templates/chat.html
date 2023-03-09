@@ -15,17 +15,22 @@
 
   <script>
     // Initialize the Stream Chat client
-    const client = new StreamChat('{{ stream_api_key }}');
+    const client = new StreamChat.getInstance('{{ stream_api_key }}');
 
     // Set up the user
-    const user = {
-      id: '{{ user.id }}',
-      name: '{{ user.name }}',
-    };
-    client.setUser(user, '{{ user_token }}');
+    await client.connectUser(
+        {
+            id: '{{ user.id }}',
+            name: '{{ user.name }}'
+        },
+        "CHAT_USER_TOKEN",
+    );
 
     // Set up the channel
-    const channel = client.channel('{{ stream_chat_channel_type }}', '{{ stream_chat_channel_name_prefix }}{{ channel_name }}');
+    const channel = client.channel('{{ stream_chat_channel_type }}', 'test',  {name: '{{ stream_chat_channel_name_prefix }}{{ channel_name }}',});
+    
+    // fetch the channel state, subscribe to future updates
+    const state = await channel.watch();
 
     // Render the Channel and MessageInput components
     const channelContainer = document.getElementById('channel-container');
