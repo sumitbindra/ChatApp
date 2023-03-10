@@ -70,7 +70,10 @@ function App() {
                     </Window>
                     <Thread />
                 </Channel> : 
-                <Channel channel={client.channel('messaging', { members: ['6', client.userID] })}> 
+                <Channel 
+                    // channel={client.channel('messaging', { members: ['6', client.userID] })}
+                    channel={client.channel('team', {name: cookies.get('username') + " interview", members: ['6', client.userID] })}
+                    > 
                     <Window>
                         <ChannelHeader />
                         <MessageList />
