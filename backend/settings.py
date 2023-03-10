@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from decouple import config
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,10 +21,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '8a9^_u^c=u*qbve%94o2u1t0+dr#qj1zq5vtr)_q)&w=t+d^q#'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -119,9 +120,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 #information from stream    
-STREAM_API_KEY = '7nhqbspxvehz' # https://getstream.io/dashboard/
-STREAM_API_SECRET = "nknppxzkp8q4dfwp7yp9mwy8nkwtqavv7zu2rxamjka3avhtnmum3ucs27g3q4ry"
-STREAM_APP_KEY = '1236045'
+STREAM_API_KEY = config('STREAM_API_KEY')
+STREAM_API_SECRET = config("STREAM_API_SECRET")
+STREAM_APP_ID = "1239027"
 
 STREAM_CHAT_CHANNEL_TYPE = 'messaging'
 STREAM_CHAT_CHANNEL_NAME_PREFIX = 'chat-'
