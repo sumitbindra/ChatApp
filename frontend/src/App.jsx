@@ -11,9 +11,10 @@ import {
 import { MessageList, MessageInput } from "stream-chat-react";
 import Cookies from 'universal-cookie';
 
-import {Auth} from "./components"
+import {Auth, Header} from "./components"
 
 import "stream-chat-react/dist/css/index.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 
@@ -54,13 +55,10 @@ function App() {
     }
 
     return (
-        <div>
-            <div className="header">
-                <div className="logout-icon"
-                    onClick={logout}>
-                    <button>Logout</button>
-                </div>
-            </div>
+        <div 
+            // className="app__wrapper"
+        >
+            <Header handleLogout={logout}/>
             <Chat client={client} theme={"messaging light"}>
                 {client.userID === '6' && <ChannelList filters={filters} sort={sort} options={options} />}
                 {client.userID === '6' ? 

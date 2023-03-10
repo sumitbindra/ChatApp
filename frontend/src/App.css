@@ -1,29 +1,3 @@
-:root {
-  --primary-color: #005fff;
-  --primary-color-alpha: #005fff1a;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-}
-
-#root {
-  height: 100%;
-}
-
-.header {
-  /* height: 10%; */
-  /* display: flex; */
-}
-
-.logout-icon {
-  /* margin-right: 0; */
-  /* float: right; */
-}
-
 .auth__form-container {
   min-height: 100vh;
   display: flex;
@@ -165,11 +139,4 @@ body {
   font-weight: 700;
 }
 
-.app__wrapper {
-  display: flex;
-  flex: 1;
-  /* height: 800px; */
-  height: 100%;
-  /* border-radius: 16px; */
-  box-shadow: rgba(0, 0, 0, 0.33) 0px 1px 4px 0px;
-}
+
