@@ -119,9 +119,9 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 #information from stream    
-STREAM_API_KEY = '7nhqbspxvehz' # https://getstream.io/dashboard/
-STREAM_API_SECRET = "nknppxzkp8q4dfwp7yp9mwy8nkwtqavv7zu2rxamjka3avhtnmum3ucs27g3q4ry"
-STREAM_APP_KEY = '1236045'
+STREAM_API_KEY = 'kh5ta7d4n7vz' # https://getstream.io/dashboard/
+STREAM_API_SECRET = "hb5rr788cj2c7y3ft2z662y36ct53wxwjbbaye3gd4b83ff9hwcddf2jvy4gr6gy"
+STREAM_APP_ID = "1238784"
 
 STREAM_CHAT_CHANNEL_TYPE = 'messaging'
 STREAM_CHAT_CHANNEL_NAME_PREFIX = 'chat-'
