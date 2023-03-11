@@ -46,20 +46,28 @@ INSTALLED_APPS = [
     'stream_chat',
 
     # user management
+    'dj_rest_auth',
+    'dj_rest_auth.registration',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'rest_framework',
-    #'djoser',
+    'rest_framework.authtoken',
+    'corsheaders',
 
     # including auth providers
-    'allauth.socialaccount.providers.github',
+    #'allauth.socialaccount.providers.github',
 ]
 
+# These settings will enable session and token-based authentication and require authentication for all views by default.
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
-    ),
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ]
 }
 
 MIDDLEWARE = [
@@ -70,7 +78,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    # CORS Headers
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+# CORS working with local host
+CORS_ORIGIN_ALLOW_ALL = True
 
 ROOT_URLCONF = 'backend.urls'
 
@@ -85,6 +99,11 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # These settings will enable authentication using Django's built-in authentication backend and Django-allauth's authentication backend, 
+                # and will include Django-allauth's templates in the template search path.
+                #'allauth.account.context_processors.account',
+                #'allauth.socialaccount.context_processors.socialaccount',
             ],
         },
     },
@@ -102,7 +121,7 @@ AUTHENTICATION_BACKENDS = [
 SITE_ID = 1
 
 ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "chat"
+#LOGIN_REDIRECT_URL = "dj-rest-auth/login/"
 ACCOUNT_LOGOUT_ON_GET = True
 
 # continue django-allauth - Provider specific settings
