@@ -40,7 +40,7 @@ function App() {
     }
     console.log(client.userID)
 
-    const filters = { members: { $in: [ '6' ] } }
+    const filters = { members: { $in: [ '16' ] } }
     const sort = { last_message_at: -1 };
     const options = { limit: 10 }
 
@@ -60,8 +60,8 @@ function App() {
         >
             <Header handleLogout={logout}/>
             <Chat client={client} theme={"messaging light"}>
-                {client.userID === '6' && <ChannelList filters={filters} sort={sort} options={options} />}
-                {client.userID === '6' ? 
+                {client.userID === '16' && <ChannelList filters={filters} sort={sort} options={options} />}
+                {client.userID === '16' ? 
                 <Channel> 
                     <Window>
                         <ChannelHeader />
@@ -70,7 +70,10 @@ function App() {
                     </Window>
                     <Thread />
                 </Channel> : 
-                <Channel channel={client.channel('messaging', { members: ['6', client.userID] })}> 
+                <Channel 
+                    // channel={client.channel('messaging', { members: ['6', client.userID] })} 
+                    channel={client.channel('team', {name: cookies.get('username') + " interview", members: ['16', client.userID] })}
+                >
                     <Window>
                         <ChannelHeader />
                         <MessageList />

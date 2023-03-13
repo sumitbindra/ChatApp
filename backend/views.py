@@ -45,11 +45,15 @@ class MyView(APIView):
         user_id = request.user.id
         channel_id = 'my-channel'
         token_url = reverse('user-token')
-        messages_url = reverse('channel-messages', args=[channel_id])
+        # messages_url = reverse('channel-messages', args=[channel_id])
+
+        stream_token = client.create_token(str(user_id))
+
         context = {
             'user_id': user_id,
             'channel_id': channel_id,
             'user_token_url': request.build_absolute_uri(token_url),
-            'channel_messages_url': request.build_absolute_uri(messages_url)
+            'stream_token': stream_token
+            # 'channel_messages_url': request.build_absolute_uri(messages_url)
         }
         return Response(context)

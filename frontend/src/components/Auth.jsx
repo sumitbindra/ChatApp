@@ -30,44 +30,73 @@ const Auth = () => {
             fullName,
         } = form;
 
-        const baseURL = 'http://localhost:8000/auth';
+        // const baseURL = 'http://localhost:8000/auth';
+        const baseURL = 'http://localhost:8000';
         // const baseURL = 'https://chat-app-tutorial.herokuapp.com/auth'; # something like this would be needed for production
 
         cookies.set('username', username);
 
         if(isSignup) {
-            const signupURL = `${baseURL}/users/`
-            const { 
-                data: {id} 
-            } = await axios.post(signupURL, {
-                username, password, 
+            // const signupURL = `${baseURL}/users/`
+            const signupURL = `${baseURL}/dj-rest-auth/registration/`
+            
+            // const { 
+            //     data: {id} 
+            // } = await axios.post(signupURL, {
+            //     username, password, 
+            // });
+            const res = await axios.post(signupURL, {
+                username, password1: password, password2: password, 
             });
             
-            cookies.set('userId', id);
+            // cookies.set('userId', id);
             cookies.set('fullName', fullName);
+            console.log(res)
         } 
-        
-        const loginURL = `${baseURL}/token/login/`
-            const { 
-                data: {auth_token, stream_token} 
-            } = await axios.post(loginURL, {
-                username, password, 
-            });
-            cookies.set('authToken', auth_token);
-            cookies.set('streamToken', stream_token);
 
         if (!isSignup) {
-            const getUserDetailsURL = `${baseURL}/users/me/`
-            const { 
-                data: {id}
-            } = await axios.get(getUserDetailsURL, {
+            const loginURL = `${baseURL}/dj-rest-auth/login/`
+            const res = await axios.post(loginURL, {
+                username, password, 
+            });
+            cookies.set('authToken', res.data.key);
+            
+            console.log(res)
+
+            const tokenURL = `${baseURL}/chat/my-view/`
+            const res2 = await axios.get(tokenURL, {
                 headers: {
-                    Authorization: "Token " + auth_token
+                    Authorization: "Token " + res.data.key
                 }
                 
             });
-            cookies.set('userId', id);
+            // cookies.set('authToken', key);
+            cookies.set('streamToken', res2.data.stream_token);
+            cookies.set('userId', res2.data.user_id);
+            console.log(res2)
         }
+
+        // const loginURL = `${baseURL}/token/login/`
+        //     const { 
+        //         data: {auth_token, stream_token} 
+        //     } = await axios.post(loginURL, {
+        //         username, password, 
+        //     });
+        //     cookies.set('authToken', auth_token);
+        //     cookies.set('streamToken', stream_token);
+
+        // if (!isSignup) {
+        //     const getUserDetailsURL = `${baseURL}/users/me/`
+        //     const { 
+        //         data: {id}
+        //     } = await axios.get(getUserDetailsURL, {
+        //         headers: {
+        //             Authorization: "Token " + auth_token
+        //         }
+                
+        //     });
+        //     cookies.set('userId', id);
+        // }
 
         window.location.reload();
     }
