@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
-from .views import UserTokenView, ChannelMessagesView, MyView
+from .views import UserTokenView, ChannelMessagesView, MyView, index
 
 from . import views
 
@@ -16,4 +16,6 @@ urlpatterns = [
     path('chat/channels/<str:channel_id>/messages/', ChannelMessagesView.as_view(), name='channel-messages'),
     path('chat/my-view/', MyView.as_view(), name='my-view'),
 
+    # serve back end and front end together
+    path("", index, name="index")
 ]

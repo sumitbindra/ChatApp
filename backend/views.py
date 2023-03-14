@@ -10,6 +10,8 @@ from stream_chat import StreamChat
 from django.conf import settings
 from django.urls import reverse
 
+from django.shortcuts import render
+import os
 
 client = StreamChat(api_key=getattr(settings, 'STREAM_API_KEY', ''), api_secret=getattr(settings, 'STREAM_API_SECRET', ''))
 
@@ -40,7 +42,7 @@ class ChannelMessagesView(APIView):
 class MyView(APIView):
     permission_classes = [IsAuthenticated]
 
-    
+
     def get(self, request):
         user_id = request.user.id
         channel_id = 'my-channel'
@@ -57,3 +59,8 @@ class MyView(APIView):
             # 'channel_messages_url': request.build_absolute_uri(messages_url)
         }
         return Response(context)
+
+# serve back end and front end together    
+def index(request):
+    template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'frontend', 'build', 'index.html')
+    return render(request, template_path)
