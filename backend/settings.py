@@ -157,11 +157,11 @@ DATABASES = {
         
         # Using Postgresql
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('postgresqldb.dbname'),
-        'USER': config('postgresqldb.username'),
-        'PASSWORD': config('postgresqldb.password'),
-        'HOST': config('postgresqldb.host'),
-        'PORT': config('postgresqldb.port'),
+        'NAME': config('postgresqldbName'),
+        'USER': config('postgresqldbUsername'),
+        'PASSWORD': config('postgresqldbPassword'),
+        'HOST': config('postgresqldbHost'),
+        'PORT': config('postgresqldbPort'),
     }
 }
 
