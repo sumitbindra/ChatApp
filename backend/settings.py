@@ -151,8 +151,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.chat_test'),
+        # Using SQLITE3
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'db.chat_test'),
+        
+        # Using Postgresql
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('postgresqldb.dbname'),
+        'USER': config('postgresqldb.username'),
+        'PASSWORD': config('postgresqldb.password'),
+        'HOST': config('postgresqldb.host'),
+        'PORT': config('postgresqldb.port'),
     }
 }
 
