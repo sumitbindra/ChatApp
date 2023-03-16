@@ -2,6 +2,9 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 
+from django.conf.urls.static import static
+from django.conf import settings
+
 from .views import UserTokenView, ChannelMessagesView, MyView, index
 
 from . import views
@@ -19,3 +22,5 @@ urlpatterns = [
     # serve back end and front end together
     path("", index, name="index")
 ]
+
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
