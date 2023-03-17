@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config
+from pathlib import Path
 import django_heroku
 
 
@@ -213,10 +214,10 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # serve back end and front end together
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', "build", "static"),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),  # update the STATICFILES_DIRS
 )
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
