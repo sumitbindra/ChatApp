@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 from decouple import config
-from pathlib import Path
 import django_heroku
+from whitenoise.storage import CompressedManifestStaticFilesStorage
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -84,6 +84,8 @@ MIDDLEWARE = [
     
     # CORS Headers
     'corsheaders.middleware.CorsMiddleware',
+
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
@@ -92,7 +94,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'frontend', 'build'),
+            os.path.join(BASE_DIR, 'backend', 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -214,10 +216,11 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # serve back end and front end together
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'backend', 'build', 'static'),  # update the STATICFILES_DIRS
 )
 
-#STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

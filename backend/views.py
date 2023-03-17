@@ -62,5 +62,5 @@ class MyView(APIView):
 
 # serve back end and front end together    
 def index(request):
-    template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'frontend', 'build', 'index.html')
+    template_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'backend', 'build', 'index.html')
     return render(request, template_path)
