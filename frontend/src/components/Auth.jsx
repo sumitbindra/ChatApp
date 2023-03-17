@@ -31,8 +31,8 @@ const Auth = () => {
         } = form;
 
         // const baseURL = 'http://localhost:8000/auth';
-        const baseURL = 'http://localhost:8000';
-        // const baseURL = 'https://chat-app-tutorial.herokuapp.com/auth'; # something like this would be needed for production
+        // const baseURL = 'http://localhost:8000';
+        const baseURL = 'https://chatapp-as.herokuapp.com'; //something like this would be needed for production
 
         cookies.set('username', username);
 
