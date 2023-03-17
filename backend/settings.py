@@ -93,7 +93,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'backend', 'build'),
+            os.path.join(BASE_DIR, 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -215,7 +215,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # serve back end and front end together
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'backend', 'build', 'static'),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'build', 'static'),  # update the STATICFILES_DIRS
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
