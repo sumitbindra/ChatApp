@@ -28,7 +28,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', cast=bool)
 
-ALLOWED_HOSTS = ['chatapp-as.herokuapp.com']
+ALLOWED_HOSTS = ['chatapp-as.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
@@ -93,7 +93,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'build'),
+            os.path.join(BASE_DIR, 'frontend', 'build'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -215,7 +215,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 # serve back end and front end together
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'build', 'static'),  # update the STATICFILES_DIRS
+    os.path.join(BASE_DIR, 'frontend', 'build', 'static'),  # update the STATICFILES_DIRS
 )
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
